@@ -23,11 +23,12 @@ public class Main extends JFrame implements ActionListener
 {
 
 	private JPanel myIoPanel, myHeaderPanel, myPanel;
-	private JLabel myName, myComputer, myTScore, myRscore, compScore, max, space;
+	private JLabel myName, myComputer, myTScore, myRscore, compScore;
+	private JLabel max, space, space2, pTScore, cTScore, instruct, die1, die2;
 	private Button roll, pass;
 	private Font myTitleFont;
 	private GridLayout myLayout;
-	private JTextField pTScore, pRScore, cTScore, cRScore, instruct;
+	private JTextField rScore;
 	static String instructionText = null, myRoundScoreStr = null, myTotalScoreStr = null;
 
 	public static void main(String[] args)
@@ -86,12 +87,20 @@ public class Main extends JFrame implements ActionListener
 			myTScore = new JLabel(p1Name + "'s Score= ", SwingConstants.CENTER);
 			myRscore = new JLabel("Round Score= ", SwingConstants.CENTER);
 			compScore = new JLabel("Computer's Score= ", SwingConstants.CENTER);
+			pTScore = new JLabel();
+			rScore = new JTextField();
+			cTScore = new JLabel();
+			die1 = new JLabel();
+			space2 = new JLabel();
+			die2 = new JLabel();
 			myPanel = new JPanel();
 			roll = new Button("Roll");
 			pass = new Button("Pass");
-			instruct = new JTextField("Instructions:");
+			instruct = new JLabel("Instructions:");
 			max = new JLabel("Max Score= " + maxVal, SwingConstants.CENTER);
 			space = new JLabel();
+			
+			
 			myPanel.setLayout(new GridLayout(0, 3));
 			myPanel.add(myName);
 			myPanel.add(max);
@@ -101,6 +110,13 @@ public class Main extends JFrame implements ActionListener
 			setLayout(new GridLayout(0, 3));
 			myPanel.add(myRscore);
 			myPanel.add(compScore);
+			myPanel.add(pTScore);
+			myPanel.add(rScore);
+			myPanel.add(cTScore);
+			
+			myPanel.add(die1);
+			myPanel.add(space2);
+			myPanel.add(die2);
 			setLayout(new GridLayout(2, 3));
 			myPanel.add(roll);
 			myPanel.add(space);
@@ -124,25 +140,46 @@ public class Main extends JFrame implements ActionListener
 		// when click roll Button
 		if (e.getSource() == roll)
 		{
-			String pTS, pRS;
+			String pTS, pRS, ins;			
 			GameEngine playerRoll = new GameEngine();
 			GameEngine.playerRoll();
 			pRS = playerRoll.getRoundScore();
-			pRScore.setText(pRS);
+			rScore.setText(pRS);
 			pTS = playerRoll.getTotalScore();
 			pTScore.setText(pTS);
+			ins = playerRoll.getInstruction();
+			instruct.setText(ins);
+			
+			//get the dice
+			ImageIcon d1, d2;
+			Die2 rollDice = new Die2();
+			d1 = rollDice.getImage();
+			die1.setIcon(d1);
+			d2 = rollDice.getImage();
+			die2.setIcon(d2);
+			
 		}
 
 		// when click Pass
 		if (e.getSource() == pass)
 		{
-			String cTS, cRS;
+			String cTS, cRS, cIns;
 			GameEngine playerRoll = new GameEngine();
-			GameEngine.playerRoll();
-			cRS = playerRoll.getRoundScore();
-			cRScore.setText(cRS);
-			cTS = playerRoll.getTotalScore();
+			GameEngine.compRoll();
+			cRS = playerRoll.getCRoundScore();
+			rScore.setText(cRS);
+			cTS = playerRoll.getCTotalScore();
 			cTScore.setText(cTS);
+			cIns = playerRoll.getCInstruction();
+			instruct.setText(cIns);
+			
+			//get the dice
+			ImageIcon d1, d2;
+			Die2 rollDice = new Die2();
+			d1 = rollDice.getImage();
+			die1.setIcon(d1);
+			d2 = rollDice.getImage();
+			die2.setIcon(d2);
 		}
 	}
 

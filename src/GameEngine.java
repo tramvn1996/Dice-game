@@ -8,7 +8,7 @@ public class GameEngine
 	static int myMaxScore;
 	static Die2 die1 = new Die2();
 	static Die2 die2 = new Die2();
-	static String instructionText, myTotalScoreStr, myRoundScoreStr;
+	static String instructionText, myTotalScoreStr, myRoundScoreStr, compRoundScoreStr, compTotalScoreStr ;
 
 	public GameEngine()
 	{
@@ -43,10 +43,12 @@ public class GameEngine
 		else if (!(die1.getTop() == 1) && !(die2.getTop() == 1))
 		{
 			myRoundScore = myRoundScore + die2.getTop();
-			myRoundScoreStr = String.valueOf(myRoundScore); //change it to String to return
 			myTotalScore = myRoundScore + myRoundScore;
 			instructionText = "Keep rolling or pass the dice to the computer";
 		}
+		
+		myRoundScoreStr = String.valueOf(myRoundScore); //change it to String to return
+		myTotalScoreStr = String.valueOf(myTotalScore);
 	}
 	
 	//setters and getters for player1
@@ -55,7 +57,7 @@ public class GameEngine
 		return myRoundScoreStr;
 	}
 	
-	public void setImage(String prs)
+	public void setRoundScore(String prs)
 	{
 		myRoundScoreStr = prs;
 	}
@@ -64,14 +66,22 @@ public class GameEngine
 	{
 		return myTotalScoreStr;
 	}
-	public void setTop(String pts)
+	public void setTotalScore(String pts)
 	{
 		myTotalScoreStr = pts;
 	}
 	
+	public String getInstruction()
+	{
+		return instructionText;
+	}
+	public void setInstruction(String ins)
+	{
+		instructionText = ins;
+	}
 
 	// Comp's turn to roll
-	public static String CompRoll()
+	public static void compRoll()
 	{
 		die1.roll(); // ask why static
 		die2.roll();
@@ -108,8 +118,35 @@ public class GameEngine
 		{
 			// disable CompRoll button?
 			instructionText = "it's the player's turn";
-
-		}
-		return null;
+		}	
+		compRoundScoreStr = String.valueOf(compRoundScore); //change it to String to return
+		compTotalScoreStr = String.valueOf(compTotalScore);
+	}
+	public String getCRoundScore()
+	{
+		return compRoundScoreStr;
+	}
+	
+	public void setCRoundScore(String crs)
+	{
+		compRoundScoreStr = crs;
+	}
+	
+	public String getCTotalScore()
+	{
+		return compTotalScoreStr;
+	}
+	public void setCTotalScore(String cts)
+	{
+		compTotalScoreStr = cts;
+	}
+	
+	public String getCInstruction()
+	{
+		return instructionText;
+	}
+	public void setCInstruction(String ins)
+	{
+		instructionText = ins;
 	}
 }

@@ -28,6 +28,7 @@ public class Main extends JFrame implements ActionListener
 	private Font myTitleFont;
 	private GridLayout myLayout;
 	private JTextField pTScore, pRScore, cTScore, cRScore, instruct;
+	static String instructionText = null, myRoundScoreStr = null, myTotalScoreStr = null;
 
 	public static void main(String[] args)
 	{
@@ -45,7 +46,7 @@ public class Main extends JFrame implements ActionListener
 
 		String p1Name = JOptionPane.showInputDialog(message);
 
-		//trying to catch the wrong value
+		// trying to catch the wrong value
 		boolean invalidNum = true;
 		int maxVal = -1;
 		while (invalidNum)
@@ -88,7 +89,7 @@ public class Main extends JFrame implements ActionListener
 			myPanel = new JPanel();
 			roll = new Button("Roll");
 			pass = new Button("Pass");
-			instruct = new JLabel("Instructions:");
+			instruct = new JTextField("Instructions:");
 			max = new JLabel("Max Score= " + maxVal, SwingConstants.CENTER);
 			space = new JLabel();
 			myPanel.setLayout(new GridLayout(0, 3));
@@ -116,30 +117,33 @@ public class Main extends JFrame implements ActionListener
 
 		}
 	}
-	
-	//implement action to link from Game Engine class
-	 public void actionPerformed(ActionEvent e)
-	    {
-		 //when click roll Button
-		  if(e.getSource() == roll)
-	        {
-	            String pTS, pRS;
-	            pRS = GameEngine.playerRoll(myRoundScoreStr);            
-	            pRScore.setText(pRS);
-	            pTS = GameEngine.playerRoll();
-	            pTScore.setText(pTS);        
-	        }
-	        
-		  
-		  //when click Pass
-		  if(e.getSource() == pass)
-	        {
-	            String cTS, cRS;
-	            cRS = GameEngine.playerRoll();
-	            cRScore.setText(cRS); 
-	            cTS = GameEngine.playerRoll();
-	            cTScore.setText(cTS);
-	        }
-	    }
+
+	// implement action to link from Game Engine class
+	public void actionPerformed(ActionEvent e)
+	{
+		// when click roll Button
+		if (e.getSource() == roll)
+		{
+			String pTS, pRS;
+			GameEngine playerRoll = new GameEngine();
+			GameEngine.playerRoll();
+			pRS = playerRoll.getRoundScore();
+			pRScore.setText(pRS);
+			pTS = playerRoll.getTotalScore();
+			pTScore.setText(pTS);
+		}
+
+		// when click Pass
+		if (e.getSource() == pass)
+		{
+			String cTS, cRS;
+			GameEngine playerRoll = new GameEngine();
+			GameEngine.playerRoll();
+			cRS = playerRoll.getRoundScore();
+			cRScore.setText(cRS);
+			cTS = playerRoll.getTotalScore();
+			cTScore.setText(cTS);
+		}
+	}
+
 }
-	 

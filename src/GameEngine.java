@@ -1,3 +1,5 @@
+import javax.swing.ImageIcon;
+
 //add something so it pauses for a while for player to click to roll dice
 public class GameEngine 
 {
@@ -13,7 +15,7 @@ public class GameEngine
 
 	}
 
-	public static String playerRoll( String instructionText, String myRoundScoreStr, String myTotalScoreStr)
+	public static void playerRoll()
 	{
 		// when player clicked Roll
 		die1.roll(); // ask why static
@@ -21,6 +23,7 @@ public class GameEngine
 
 		// set round score to zero
 		myRoundScore = 0;
+		compRoundScore = 0;
 		
 		// if both of the dice roll 1's, then total score is 0
 		if (die1.getTop() == 1 && die2.getTop() == 1)
@@ -44,9 +47,28 @@ public class GameEngine
 			myTotalScore = myRoundScore + myRoundScore;
 			instructionText = "Keep rolling or pass the dice to the computer";
 		}
-		//return instructionText = "You lost your turn to the computer";
-		return playerRoll(instructionText, myRoundScoreStr, myTotalScoreStr);
 	}
+	
+	//setters and getters for player1
+	public String getRoundScore()
+	{
+		return myRoundScoreStr;
+	}
+	
+	public void setImage(String prs)
+	{
+		myRoundScoreStr = prs;
+	}
+	
+	public String getTotalScore()
+	{
+		return myTotalScoreStr;
+	}
+	public void setTop(String pts)
+	{
+		myTotalScoreStr = pts;
+	}
+	
 
 	// Comp's turn to roll
 	public static String CompRoll()
@@ -55,8 +77,8 @@ public class GameEngine
 		die2.roll();
 
 		// set comp's score to zero
+		myRoundScore = 0;
 		compRoundScore = 0;
-		
 		
 		while (compRoundScore <= 20)
 		{
@@ -90,5 +112,4 @@ public class GameEngine
 		}
 		return null;
 	}
-
 }
